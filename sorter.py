@@ -63,21 +63,58 @@ def animateSort(arr, sortType, category):
 
 def main():
     """Main function to drive the sorting visualization."""
-    action = input("Would you like to use the algorithms or learn about them? (use/learn): ").strip().lower()
+    while True:
+        action = input("Would you like to use the algorithms or learn about them? (use/learn): ").strip().lower()
+        if action in ['use', 'learn']:
+            break
+        print("Invalid input. Please enter 'use' or 'learn'.")
     
     if action == 'learn':
-        category = input("Select the category of sorting algorithms (normal/joke): ").strip().lower()
-        sortType = input(f"Enter the {category} sorting algorithm: ").strip().lower()
-        info = get_algorithm_info(category, sortType)
-        print(info)
+        while True:
+            category = input("Select the category of sorting algorithms (normal/joke): ").strip().lower()
+            if category in ['normal', 'joke']:
+                break
+            print("Invalid category. Please enter 'normal' or 'joke'.")
+        
+        while True:
+            sortType = input(f"Enter the {category} sorting algorithm: ").strip().lower()
+            info = get_algorithm_info(category, sortType)
+            if info != "Information not available for the selected algorithm.":
+                print(info)
+                break
+            print("Invalid sorting algorithm. Please enter a valid sorting algorithm.")
+    
     elif action == 'use':
-        lengthOfArray = int(input("Enter the length of the array: "))
-        category = input("Select the category of sorting algorithms (normal/joke): ").strip().lower()
+        while True:
+            try:
+                lengthOfArray = int(input("Enter the length of the array: "))
+                if lengthOfArray > 0:
+                    break
+                else:
+                    print("Array length must be a positive integer.")
+            except ValueError:
+                print("Invalid input. Please enter a positive integer.")
+        
+        while True:
+            category = input("Select the category of sorting algorithms (normal/joke): ").strip().lower()
+            if category in ['normal', 'joke']:
+                break
+            print("Invalid category. Please enter 'normal' or 'joke'.")
         
         if category == 'normal':
-            sortType = input("Enter the normal sorting algorithm (bubble/cocktail/quick/merge/heap/tim/intro): ").strip().lower()
+            valid_normal_sorts = ['bubble', 'cocktail', 'quick', 'merge', 'heap', 'tim', 'intro']
+            while True:
+                sortType = input("Enter the normal sorting algorithm (bubble/cocktail/quick/merge/heap/tim/intro): ").strip().lower()
+                if sortType in valid_normal_sorts:
+                    break
+                print("Invalid sorting algorithm. Please enter a valid normal sorting algorithm.")
         elif category == 'joke':
-            sortType = input("Enter the joke sorting algorithm (bogo/stalin/bogobogo): ").strip().lower()
+            valid_joke_sorts = ['bogo', 'stalin', 'bogobogo']
+            while True:
+                sortType = input("Enter the joke sorting algorithm (bogo/stalin/bogobogo): ").strip().lower()
+                if sortType in valid_joke_sorts:
+                    break
+                print("Invalid sorting algorithm. Please enter a valid joke sorting algorithm.")
         
         arrayToSort = list(range(1, lengthOfArray + 1))
         random.shuffle(arrayToSort)
