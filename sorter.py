@@ -9,6 +9,7 @@ from normal.tim_sort import timSort
 from normal.intro_sort import introSort
 from joke.bogo_sort import bogoSort
 from joke.stalin_sort import stalinSort
+from joke.bogobogo_sort import bogobogoSort
 
 def get_algorithm_info(category, sortType):
     """Returns information about the selected sorting algorithm."""
@@ -24,7 +25,8 @@ def get_algorithm_info(category, sortType):
         },
         'joke': {
             'bogo': 'Bogo Sort is a highly ineffective sorting algorithm based on the generate and test paradigm. It successively generates permutations of its input until it finds one that is sorted.',
-            'stalin': 'Stalin Sort is a joke sorting algorithm where elements that are out of order are removed from the list, leaving only the sorted elements.'
+            'stalin': 'Stalin Sort is a joke sorting algorithm where elements that are out of order are removed from the list, leaving only the sorted elements.',
+            'bogobogo': 'BogoBogo Sort is an extremely inefficient sorting algorithm that recursively applies Bogo Sort to progressively larger prefixes of the list and then shuffles the entire list if it is not sorted.'
         }
     }
     return info[category].get(sortType, "Information not available for the selected algorithm.")
@@ -52,6 +54,8 @@ def animateSort(arr, sortType, category):
             bogoSort(arr, ax)
         elif sortType == 'stalin':
             stalinSort(arr, ax)
+        elif sortType == 'bogobogo':
+            bogobogoSort(arr, ax)
     plt.show()
 
 def main():
@@ -70,7 +74,7 @@ def main():
         if category == 'normal':
             sortType = input("Enter the normal sorting algorithm (bubble/cocktail/quick/merge/heap/tim/intro): ").strip().lower()
         elif category == 'joke':
-            sortType = input("Enter the joke sorting algorithm (bogo/stalin): ").strip().lower()
+            sortType = input("Enter the joke sorting algorithm (bogo/stalin/bogobogo): ").strip().lower()
         
         arrayToSort = list(range(1, lengthOfArray + 1))
         random.shuffle(arrayToSort)
