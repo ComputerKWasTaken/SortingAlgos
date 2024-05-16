@@ -10,6 +10,7 @@ This repository contains Python implementations of various sorting algorithms, b
 .
 ├── joke
 │   ├── bogo_sort.py
+|   ├── bogobogo_sort.py
 │   └── stalin_sort.py
 ├── normal
 │   ├── bubble_sort.py
@@ -37,6 +38,7 @@ This repository contains Python implementations of various sorting algorithms, b
 
 ### Joke Sorting Algorithms
 - **Bogo Sort**: A highly ineffective sorting algorithm based on the generate and test paradigm.
+- **Bogobogo Sort**: An extremely inefficient and impractical sorting algorithm. It works by recursively applying Bogo Sort to progressively larger prefixes of the list and then shuffling the entire list if it is not sorted.
 - **Stalin Sort**: A joke sorting algorithm where elements that are out of order are removed from the list, leaving only the sorted elements.
 
 ## How to Use
