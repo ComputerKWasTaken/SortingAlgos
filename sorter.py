@@ -34,6 +34,9 @@ def get_algorithm_info(category, sortType):
 def animateSort(arr, sortType, category):
     """Initializes the figure and selects the sorting algorithm."""
     fig, ax = plt.subplots()
+    valid_sort_types = ['bubble', 'cocktail', 'quick', 'merge', 'heap', 'tim', 'intro', 'bogo', 'stalin', 'bogobogo']
+    while sortType not in valid_sort_types:
+        sortType = input("Invalid sort type. Please enter a valid sort type: ")
     if category == 'normal':
         if sortType == 'bubble':
             bubbleSortRecursive(arr, len(arr), 0, ax)
