@@ -19,7 +19,9 @@ This repository contains Python implementations of various sorting algorithms, b
 │   ├── merge_sort.py
 │   ├── heap_sort.py
 │   ├── tim_sort.py
-│   └── intro_sort.py
+│   ├── intro_sort.py
+│   ├── shell_sort.py
+│   └── comb_sort.py
 ├── requirements.txt
 └── sorter.py
 ```
@@ -34,6 +36,8 @@ This repository contains Python implementations of various sorting algorithms, b
 - **Heap Sort**: A comparison-based sorting technique based on Binary Heap data structure.
 - **Tim Sort**: A hybrid sorting algorithm derived from Merge Sort and Insertion Sort.
 - **Intro Sort**: A hybrid sorting algorithm that begins with Quick Sort and switches to Heap Sort when the recursion depth exceeds a level based on the number of elements being sorted.
+- **Shell Sort**: Shell Sort is a generalization of Insertion Sort that allows the exchange of items that are far apart. The idea is to arrange the list of elements so that, starting anywhere, considering every hth element gives a sorted list.
+- **Comb Sort**: Comb Sort is a comparison-based algorithm that improves on Bubble Sort by using a gap greater than 1. The gap starts with a large value and shrinks by a factor of 1.3 in every iteration until it reaches the value 1.
 
 ### Joke Sorting Algorithms
 - **Bogo Sort**: A highly ineffective sorting algorithm based on the generate and test paradigm.
