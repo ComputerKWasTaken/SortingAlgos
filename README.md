@@ -10,7 +10,7 @@ This repository contains Python implementations of various sorting algorithms, b
 .
 ├── joke
 │   ├── bogo_sort.py
-|   ├── bogobogo_sort.py
+│   ├── bogobogo_sort.py
 │   └── stalin_sort.py
 ├── normal
 │   ├── bubble_sort.py
