@@ -18,6 +18,7 @@ def bogobogoSort(arr: List[int], ax=None) -> None:
         for i in range(len(arr)):
             sub_array = arr[:i + 1]
             bogoSort(sub_array)
+            arr[:i + 1] = sub_array  # Update the original array
             visualize(arr, passNum, i, i, ax)
             passNum += 1
         random.shuffle(arr)
