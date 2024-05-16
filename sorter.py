@@ -7,6 +7,8 @@ from normal.merge_sort import mergeSort
 from normal.heap_sort import heapSort
 from normal.tim_sort import timSort
 from normal.intro_sort import introSort
+from normal.shell_sort import shellSort
+from normal.comb_sort import combSort
 from joke.bogo_sort import bogoSort
 from joke.stalin_sort import stalinSort
 from joke.bogobogo_sort import bogobogoSort
@@ -21,7 +23,9 @@ def get_algorithm_info(category, sortType):
             'merge': 'Merge Sort is a stable, comparison-based, divide-and-conquer sorting algorithm that divides the array into halves, recursively sorts them, and then merges the sorted halves.',
             'heap': 'Heap Sort is a comparison-based sorting technique based on Binary Heap data structure. It is similar to selection sort where we first find the maximum element and place it at the end.',
             'tim': 'Tim Sort is a hybrid sorting algorithm derived from Merge Sort and Insertion Sort. It is used in Python’s built-in sort() and sorted() functions.',
-            'intro': 'Intro Sort is a hybrid sorting algorithm that begins with Quick Sort and switches to Heap Sort when the recursion depth exceeds a certain level.'
+            'intro': 'Intro Sort is a hybrid sorting algorithm that begins with Quick Sort and switches to Heap Sort when the recursion depth exceeds a certain level.',
+            'shell': 'Shell Sort is a generalization of Insertion Sort that allows the exchange of items that are far apart. The idea is to arrange the list of elements so that, starting anywhere, considering every hth element gives a sorted list.',
+            'comb': 'Comb Sort is a comparison-based algorithm that improves on Bubble Sort by using a gap greater than 1. The gap starts with a large value and shrinks by a factor of 1.3 in every iteration until it reaches the value 1.'
         },
         'joke': {
             'bogo': 'Bogo Sort is a highly ineffective sorting algorithm based on the generate and test paradigm. It successively generates permutations of its input until it finds one that is sorted.',
@@ -34,7 +38,7 @@ def get_algorithm_info(category, sortType):
 def animateSort(arr, sortType, category):
     """Initializes the figure and selects the sorting algorithm."""
     fig, ax = plt.subplots()
-    valid_sort_types = ['bubble', 'cocktail', 'quick', 'merge', 'heap', 'tim', 'intro', 'bogo', 'stalin', 'bogobogo']
+    valid_sort_types = ['bubble', 'cocktail', 'quick', 'merge', 'heap', 'tim', 'intro', 'shell', 'comb', 'bogo', 'stalin', 'bogobogo']
     while sortType not in valid_sort_types:
         sortType = input("Invalid sort type. Please enter a valid sort type: ")
     if category == 'normal':
@@ -52,6 +56,10 @@ def animateSort(arr, sortType, category):
             timSort(arr, ax)
         elif sortType == 'intro':
             introSort(arr, ax)
+        elif sortType == 'shell':
+            shellSort(arr, ax)
+        elif sortType == 'comb':
+            combSort(arr, ax)
     elif category == 'joke':
         if sortType == 'bogo':
             bogoSort(arr, ax)
@@ -102,9 +110,9 @@ def main():
             print("Invalid category. Please enter 'normal' or 'joke'.")
         
         if category == 'normal':
-            valid_normal_sorts = ['bubble', 'cocktail', 'quick', 'merge', 'heap', 'tim', 'intro']
+            valid_normal_sorts = ['bubble', 'cocktail', 'quick', 'merge', 'heap', 'tim', 'intro', 'shell', 'comb']
             while True:
-                sortType = input("Enter the normal sorting algorithm (bubble/cocktail/quick/merge/heap/tim/intro): ").strip().lower()
+                sortType = input("Enter the normal sorting algorithm (bubble/cocktail/quick/merge/heap/tim/intro/shell/comb): ").strip().lower()
                 if sortType in valid_normal_sorts:
                     break
                 print("Invalid sorting algorithm. Please enter a valid normal sorting algorithm.")
