@@ -21,7 +21,6 @@ This repository contains Python implementations of various sorting algorithms, b
 │   ├── tim_sort.py
 │   └── intro_sort.py
 ├── requirements.txt
-├── RUNME.py
 └── sorter.py
 ```
 
