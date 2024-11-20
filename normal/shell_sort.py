@@ -3,6 +3,9 @@ from typing import List
 
 def shellSort(arr: List[int], ax=None):
     """ Applies a shell sort algorithm, visualizing each step. """
+    if not arr:
+        return arr
+        
     n = len(arr)
     gap = n // 2
 
@@ -13,8 +16,11 @@ def shellSort(arr: List[int], ax=None):
             while j >= gap and arr[j - gap] > temp:
                 arr[j] = arr[j - gap]
                 j -= gap
+                if ax:
+                    visualize(arr, gap, i, j, ax)
             arr[j] = temp
-            visualize(arr, gap, i, j, ax)
+            if ax:
+                visualize(arr, gap, i, j, ax)
         gap //= 2
 
     return arr

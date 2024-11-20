@@ -1,48 +1,84 @@
 import matplotlib.pyplot as plt
 import math
 from typing import List
-from normal.heap_sort import heapify
+from normal.heap_sort import heapSort
 
-def introSort(arr: List[int], ax=None):
-    """Implements the intro sort algorithm with visualization."""
-    max_depth = 2 * int(math.log2(len(arr)))
-    _introSort(arr, 0, len(arr) - 1, max_depth, 0, ax)
+def insertion_sort(arr: List[int], start: int, end: int, passNum: int, ax=None):
+    """Optimized insertion sort for small arrays"""
+    for i in range(start + 1, end + 1):
+        key = arr[i]
+        j = i - 1
+        while j >= start and arr[j] > key:
+            arr[j + 1] = arr[j]
+            j -= 1
+            if ax:
+                visualize(arr, passNum, j + 1, i, ax)
+        arr[j + 1] = key
+        if ax:
+            visualize(arr, passNum, j + 1, i, ax)
 
-def _introSort(arr: List[int], start: int, end: int, max_depth: int, passNum: int, ax):
-    """Helper function for intro sort."""
-    if start < end:
-        if max_depth == 0:
-            heapSort(arr, start, end, ax, passNum)
-        else:
-            p = partition(arr, start, end, passNum, ax)
-            _introSort(arr, start, p - 1, max_depth - 1, passNum, ax)
-            _introSort(arr, p + 1, end, max_depth - 1, passNum, ax)
-
-def heapSort(arr: List[int], start: int, end: int, ax, passNum):
-    """Heap sort used by intro sort."""
-    n = end - start + 1
-    for i in range(n // 2 - 1, -1, -1):
-        heapify(arr, n, i + start, passNum, ax)
-    for i in range(n - 1, 0, -1):
-        arr[start + i], arr[start] = arr[start], arr[start + i]
-        visualize(arr, passNum, start + i, start, ax)
-        heapify(arr, i, start, passNum, ax)
-        passNum += 1
-
-def partition(arr: List[int], low: int, high: int, passNum: int, ax):
+def partition(arr: List[int], low: int, high: int, passNum: int, ax=None):
+    """Optimized partition with simple pivot selection"""
+    # Use middle element as pivot to avoid worst case for sorted arrays
+    mid = (low + high) // 2
+    arr[mid], arr[high] = arr[high], arr[mid]
     pivot = arr[high]
+    
     i = low - 1
     for j in range(low, high):
         if arr[j] <= pivot:
             i += 1
-            arr[i], arr[j] = arr[j], arr[i]
-            visualize(arr, passNum, i, j, ax)
+            if i != j:
+                arr[i], arr[j] = arr[j], arr[i]
+                if ax:
+                    visualize(arr, passNum, i, j, ax)
+    
     arr[i + 1], arr[high] = arr[high], arr[i + 1]
-    visualize(arr, passNum, i + 1, high, ax)
+    if ax:
+        visualize(arr, passNum, i + 1, high, ax)
     return i + 1
+
+def introSort(arr: List[int], ax=None):
+    """Main Introsort function"""
+    if not arr:
+        return arr
+    
+    max_depth = 2 * int(math.log2(len(arr)))
+    _introSort(arr, 0, len(arr) - 1, max_depth, 0, ax)
+    return arr
+
+def _introSort(arr: List[int], start: int, end: int, max_depth: int, passNum: int, ax=None):
+    """Recursive Introsort helper"""
+    size = end - start + 1
+    
+    # Use insertion sort for small arrays
+    if size <= 16:
+        insertion_sort(arr, start, end, passNum, ax)
+        return
+    
+    # If recursion too deep, switch to heapsort
+    if max_depth <= 0:
+        if ax:
+            visualize(arr, passNum, start, end, ax)
+        heapSort(arr[start:end + 1], ax)
+        return
+    
+    # Otherwise, use quicksort partitioning
+    pivot = partition(arr, start, end, passNum, ax)
+    
+    # Recurse on smaller partition first
+    if pivot - start < end - pivot:
+        _introSort(arr, start, pivot - 1, max_depth - 1, passNum + 1, ax)
+        _introSort(arr, pivot + 1, end, max_depth - 1, passNum + 1, ax)
+    else:
+        _introSort(arr, pivot + 1, end, max_depth - 1, passNum + 1, ax)
+        _introSort(arr, start, pivot - 1, max_depth - 1, passNum + 1, ax)
 
 def visualize(arr: List[int], passNum: int, swapIndex: int, selectedIndex: int, ax):
     """Updates the matplotlib bar graph for visualization."""
+    if ax is None:
+        return
+        
     ax.clear()
     barColors = ['blue'] * len(arr)
     barColors[selectedIndex] = 'orange'
